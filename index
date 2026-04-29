@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>康鳴自動化程式 | 首頁</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(100, 180, 255, 0.28), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(255, 194, 122, 0.25), transparent 32%),
+        linear-gradient(135deg, #f8fbff 0%, #eef5ff 45%, #fff9f0 100%);
+      color: #1f2a44;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 18px;
+    }
+
+    .page {
+      width: min(960px, 100%);
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(74, 111, 165, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      color: #45617f;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      box-shadow: 0 10px 30px rgba(70, 100, 140, 0.08);
+    }
+
+    .badge span {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #70b6ff;
+      box-shadow: 0 0 0 6px rgba(112, 182, 255, 0.18);
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.12;
+      margin-bottom: 14px;
+      letter-spacing: 0.03em;
+      color: #16233c;
+    }
+
+    .subtitle {
+      margin-bottom: 46px;
+      color: #66758b;
+      font-size: clamp(15px, 2vw, 18px);
+      line-height: 1.8;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .card {
+      position: relative;
+      min-height: 180px;
+      padding: 28px;
+      border-radius: 28px;
+      text-decoration: none;
+      color: #1f2a44;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 22px 55px rgba(54, 82, 120, 0.13);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      text-align: left;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(135deg, rgba(112, 182, 255, 0.25), rgba(255, 205, 145, 0.22));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: 0;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 30px 70px rgba(54, 82, 120, 0.2);
+      border-color: rgba(112, 182, 255, 0.45);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      font-size: 25px;
+      background: linear-gradient(135deg, #e8f3ff, #fff3df);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.75);
+    }
+
+    .card h2 {
+      font-size: 25px;
+      margin-bottom: 10px;
+      letter-spacing: 0.03em;
+    }
+
+    .card p {
+      color: #6d7b8e;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .arrow {
+      align-self: flex-end;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: #16233c;
+      color: #fff;
+      font-size: 20px;
+      margin-top: 18px;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+      min-height: 160px;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .wide .content {
+      flex: 1;
+    }
+
+    .wide .icon {
+      margin-bottom: 0;
+      width: 64px;
+      height: 64px;
+      font-size: 30px;
+      flex: 0 0 auto;
+    }
+
+    .footer {
+      margin-top: 34px;
+      color: #8a96a7;
+      font-size: 13px;
+    }
+
+    @media (max-width: 680px) {
+      body {
+        align-items: flex-start;
+        padding-top: 54px;
+      }
+
+      .menu {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .card,
+      .wide {
+        min-height: 150px;
+        padding: 24px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .wide .icon {
+        width: 52px;
+        height: 52px;
+        font-size: 25px;
+      }
+
+      .subtitle {
+        margin-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="badge"><span></span> 康鳴自動化程式</div>
+
+    <h1>自動化助理入口網</h1>
+    <p class="subtitle">快速開啟常用工具，讓日常流程更簡單、更有效率。</p>
+
+    <section class="menu" aria-label="功能選單">
+      <a class="card" href="https://script.google.com/macros/s/AKfycby1edZXsrut-ODExNc4EhliwWXNqAf9oWJNV_kSgrIctxAK171zyikywDKhsYxcyOQ/exec" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="icon">📋</div>
+          <h2>每日菜單</h2>
+          <p>快速查看與管理每日待辦事項。</p>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="card" href="https://comingicecream-ui.github.io/mli-carins/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="icon">🚘</div>
+          <h2>車險簡訊</h2>
+          <p>快速產出車險提醒與客戶通知內容。</p>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="card wide" href="https://comingicecream-ui.github.io/moneykeeper/" target="_blank" rel="noopener noreferrer">
+        <div class="icon">🏦</div>
+        <div class="content">
+          <h2>金管家</h2>
+          <p>管理財務資訊，協助掌握收入、支出與金流狀況。</p>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+    </section>
+
+    <p class="footer">© 康鳴自動化程式</p>
+  </main>
+</body>
+</html>
